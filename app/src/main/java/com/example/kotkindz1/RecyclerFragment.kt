@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class RecyclerFragment : Fragment(), OnItemClickListener {
 
@@ -15,7 +16,7 @@ class RecyclerFragment : Fragment(), OnItemClickListener {
     private var model: OnePieceModel? = null
     private var list: ArrayList<OnePieceModel>? = null
     private var rvListOfName: RecyclerView? = null
-    private lateinit var btnAdd: Button
+    private lateinit var btnAdd: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,7 @@ class RecyclerFragment : Fragment(), OnItemClickListener {
         adapter.setData(list)
         initialize()
         setOnClickListener()
-        AddData()
+        addData()
     }
 
     private fun initialize() {
@@ -49,11 +50,11 @@ class RecyclerFragment : Fragment(), OnItemClickListener {
         }
     }
 
-    private fun AddData() {
-        parentFragmentManager.setFragmentResultListener("back", viewLifecycleOwner)
+    private fun addData() {
+        parentFragmentManager.setFragmentResultListener("bundle", viewLifecycleOwner)
         { requestKey, result ->
-            if (requestKey == "back") {
-                model = result.getSerializable("OK") as OnePieceModel?
+            if (requestKey == "bundle") {
+                model = result.getSerializable("serializable") as OnePieceModel?
                 model?.let { list?.add(it) }
                 adapter.setData(list)
             }
@@ -62,9 +63,9 @@ class RecyclerFragment : Fragment(), OnItemClickListener {
 
     override fun onClick(model: OnePieceModel) {
         val bundle = Bundle()
-        bundle.putSerializable("key", model)
+        bundle.putSerializable("name", model)
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, DetailFragment::class.java, bundle)
+            .add(R.id.fragment_container, DetailFragment::class.java, bundle)
             .addToBackStack("RecyclerFragment")
             .commit()
     }
