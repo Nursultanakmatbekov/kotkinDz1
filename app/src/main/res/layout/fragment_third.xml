@@ -8,25 +8,26 @@
     tools:context=".ThirdFragment">
 
     <EditText
-        android:id="@+id/ed_url"
+        android:id="@+id/add_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Введите URL картинки"
         android:layout_margin="20dp"/>
 
     <EditText
-        android:id="@+id/ed_name"
+        android:id="@+id/add_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Введите имя"
         android:layout_margin="20dp"/>
 
     <EditText
-        android:id="@+id/ed_age"
+        android:id="@+id/add_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Введите возрост"
         android:layout_margin="20dp"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_add"
         android:layout_width="wrap_content"

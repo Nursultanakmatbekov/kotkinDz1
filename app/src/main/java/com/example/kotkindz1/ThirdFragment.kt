@@ -1,4 +1,4 @@
-package com.example.kotkindz1.Fragment
+package com.example.kotkindz1
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import com.example.kotkindz1.OnePieceModel
-import com.example.kotkindz1.R
 import com.google.android.material.button.MaterialButton
 
 class ThirdFragment : Fragment() {
@@ -18,24 +16,24 @@ class ThirdFragment : Fragment() {
     private var btAdd: MaterialButton? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_third, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        edUrl = view.findViewById(R.id.ed_url)
-        edName = view.findViewById(R.id.ed_name)
-        edAge = view.findViewById(R.id.ed_age)
+        edUrl = view.findViewById(R.id.add_url)
+        edName = view.findViewById(R.id.add_name)
+        edAge = view.findViewById(R.id.add_age)
         btAdd = view.findViewById(R.id.bt_add)
         setOnClickListener()
     }
 
     private fun setOnClickListener() {
-        btAdd!!.setOnClickListener {
+        btAdd!!.setOnClickListener { view: View? ->
             val edURL = edUrl!!.text.toString().trim { it <= ' ' }
             val edNAME = edName!!.text.toString().trim { it <= ' ' }
             val edAGE = edAge!!.text.toString().trim { it <= ' ' }
@@ -43,7 +41,7 @@ class ThirdFragment : Fragment() {
                 edUrl!!.error = "error"
                 edName!!.error = "error"
                 edAge!!.error = "error"
-            } else if (edNAME.isEmpty()) {
+            } else if (edURL.isEmpty()) {
                 edUrl!!.error = "error"
             } else if (edNAME.isEmpty()) {
                 edName!!.error = "error"

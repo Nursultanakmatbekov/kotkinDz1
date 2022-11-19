@@ -9,16 +9,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.kotkindz1.Fragment.RecyclerFragment
 import com.google.android.material.card.MaterialCardView
 import java.lang.String
 import kotlin.Int
 
+
 class OnePieceAdapter(onItemClickListener: RecyclerFragment) :
     RecyclerView.Adapter<OnePieceAdapter.CharacterViewHolder>(), View.OnClickListener {
-
     private var listCharacters: List<OnePieceModel>? = null
-    private val onItemClickListener: OnItemClickListener? = null
+    private val onItemClickListener: OnItemClickListener
+
+    init {
+        this.onItemClickListener = onItemClickListener
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(listCharacters: List<OnePieceModel>?) {
@@ -34,28 +37,35 @@ class OnePieceAdapter(onItemClickListener: RecyclerFragment) :
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.itemView.setOnClickListener(this)
-        holder.onBind(listCharacters!![position])    }
+        holder.onBind(listCharacters!![position])
+    }
 
     override fun getItemCount(): Int {
         return listCharacters!!.size
     }
 
     override fun onClick(view: View) {
-        onItemClickListener!!.onClick((view.tag as OnePieceModel)!!)
+        onItemClickListener.onClick((view.tag as OnePieceModel))
     }
 
     class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val mainContainer: MaterialCardView
+        private val ivImage: ImageView
+        private val tvName: TextView
+        private val tvAge: TextView
 
-        private var mainContainer: MaterialCardView? = null
-        private var ivImage: ImageView? = null
-        private var tvName: TextView? = null
-        private var tvAge: TextView? = null
+        init {
+            ivImage = view.findViewById(R.id.iv_image)
+            tvName = view.findViewById(R.id.tv_name)
+            tvAge = view.findViewById(R.id.tv_age)
+            mainContainer = view.findViewById(R.id.main_container)
+        }
 
         fun onBind(character: OnePieceModel) {
-            Glide.with(ivImage!!.context).load(character.getImageUrl()).into(ivImage!!)
-            tvName!!.text = character.getName()
-            tvAge!!.text = String.valueOf(character.getAge())
-            mainContainer!!.setCardBackgroundColor(Color.parseColor(character.getColor()))
+            Glide.with(ivImage.context).load(character.image).into(ivImage)
+            tvName.text = character.name
+            tvAge.setText(String.valueOf(character.age))
+            mainContainer.setCardBackgroundColor(Color.parseColor(character.color))
             itemView.tag = character
         }
     }
